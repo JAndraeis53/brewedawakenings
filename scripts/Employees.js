@@ -1,8 +1,9 @@
-import { getEmployees } from "./database.js"
+import { getEmployees, getOrders } from "./database.js"
 
 document.addEventListener(
     "click",
     (clickEvent) => {
+        // debugger
         const itemClicked = clickEvent.target
         if (itemClicked.id.startsWith("employee")) {
             const [, employeeId] = itemClicked.id.split("--")
@@ -18,7 +19,7 @@ document.addEventListener(
                         } 
                     )
 
-                    window.alert(` ${employee.name} sold ${employeeOrders} products `)
+                    window.alert(` ${employee.name} sold ${employeeOrders.length} products `)
                 }
             }
         }
@@ -26,12 +27,13 @@ document.addEventListener(
 )
 
 const employees = getEmployees()
+const orders = getOrders()
 
 export const Employees = () => {
     let html = "<ul>"
 
     for (const employee of employees) {
-        html += `<li id="employee--${employee.Id}">${employee.name}</li>`
+        html += `<li id="employee--${employee.id}">${employee.name}</li>`
     }
 
     html += "</ul>"
